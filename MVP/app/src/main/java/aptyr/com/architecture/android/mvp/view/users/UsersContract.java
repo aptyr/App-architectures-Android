@@ -26,6 +26,8 @@ public interface UsersContract {
 
         void getUsers(int since);
 
+        void rvItemClicked(int position);
+
     }
 
     interface View extends BaseContract.View<Presenter> {

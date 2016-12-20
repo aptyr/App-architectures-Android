@@ -24,7 +24,7 @@ public class RetrofitClient {
 
     public static <T> T createRetrofitService(final Class<T> clazz, final String endPoint) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor(interceptor);
 

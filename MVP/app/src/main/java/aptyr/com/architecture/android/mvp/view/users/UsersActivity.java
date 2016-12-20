@@ -27,7 +27,10 @@ import aptyr.com.architecture.android.mvp.view.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UsersActivity extends AppCompatActivity implements UsersContract.View, RecyclerView.RecyclerViewBottomReachedListener {
+public class UsersActivity extends AppCompatActivity implements
+        UsersContract.View,
+        UsersAdapter.ItemClickListener,
+        RecyclerView.RecyclerViewBottomReachedListener {
 
 
     private UsersContract.Presenter mPresenter;
@@ -43,8 +46,10 @@ public class UsersActivity extends AppCompatActivity implements UsersContract.Vi
         setContentView(R.layout.activity_users);
         ButterKnife.bind(this);
 
+
         rv.setAdapter(adapter);
         rv.setRecyclerViewBottomReachedListener(this);
+        adapter.setItemClickListener(this);
 
         getPresenter().start();
     }
@@ -66,7 +71,11 @@ public class UsersActivity extends AppCompatActivity implements UsersContract.Vi
 
     @Override
     public void bottomReached() {
-        Log.d("bottomReached", adapter.getItemCount() + " ");
         getPresenter().getUsers(adapter.getItemCount());
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        getPresenter().rvItemClicked(position);
     }
 }
