@@ -38,6 +38,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     private ViewHolder mViewHolder;
     private ItemClickListener mItemClickListener;
 
+    private int mExpandRowPosition = -1;
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
@@ -50,6 +52,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = mUsers.get(position);
         holder.rowView.setData(user);
+        holder.rowView.setExpanded(position == mExpandRowPosition);
     }
 
     @Override
@@ -64,6 +67,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     public void setItemClickListener(ItemClickListener clickListener) {
         mItemClickListener = clickListener;
+    }
+
+    public void expandRow(int position) {
+        int old = mExpandRowPosition;
+        mExpandRowPosition = position;
+        notifyItemChanged(position);
+        if (old != -1)
+            notifyItemChanged(old);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -27,7 +27,6 @@ import aptyr.com.architecture.android.mvp.model.User;
 
 public class UsersRecyclerViewRow extends ConstraintLayout {
 
-    private User mUser;
     private LayoutBasicUserBinding mDataBinding;
 
     public UsersRecyclerViewRow(Context context, AttributeSet attributeSet) {
@@ -41,8 +40,10 @@ public class UsersRecyclerViewRow extends ConstraintLayout {
 
 
     public void setData(User user){
-        mUser = user;
         mDataBinding.setUser(user);
-        mDataBinding.setExpanded(false);
+    }
+
+    public void setExpanded(boolean expanded){
+        mDataBinding.setExpanded(expanded);
     }
 }

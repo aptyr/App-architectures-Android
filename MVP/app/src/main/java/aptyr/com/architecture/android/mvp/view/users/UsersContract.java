@@ -34,5 +34,6 @@ public interface UsersContract {
 
         void onUsersFetched(List<User> users);
 
+        void expandRow(int position);
     }
 }

@@ -17,7 +17,6 @@ package aptyr.com.architecture.android.mvp.view.users;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 
@@ -67,6 +66,11 @@ public class UsersActivity extends AppCompatActivity implements
     @Override
     public void onUsersFetched(List<User> users) {
         adapter.addUsers(users);
+    }
+
+    @Override
+    public void expandRow(int position) {
+        adapter.expandRow(position);
     }
 
     @Override

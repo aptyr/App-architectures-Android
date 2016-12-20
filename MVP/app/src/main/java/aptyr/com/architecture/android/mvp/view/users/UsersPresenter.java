@@ -62,6 +62,6 @@ public class UsersPresenter implements UsersContract.Presenter, GithubAPI.FetchU
 
     @Override
     public void rvItemClicked(int position) {
-        Log.d("click", "rvItemClicked: " + data.get(position));
+        mView.expandRow(position);
     }
 }
