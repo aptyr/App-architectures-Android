@@ -6,6 +6,8 @@
 
         <import type="android.view.View"/>
 
+        <import type="aptyr.com.architecture.android.mvp.utils.DateFormatter"/>
+
         <variable
             name="user"
             type="aptyr.com.architecture.android.mvp.model.User"/>
@@ -15,6 +17,7 @@
             type="java.lang.Boolean"/>
 
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Since"/>
+            android:text="@{ DateFormatter.dateFormat(user.createdAt)}"/>
 
     </LinearLayout>
 

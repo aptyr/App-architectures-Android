@@ -15,8 +15,6 @@ package aptyr.com.architecture.android.mvp.rest;
  * limitations under the License.
  */
 
-import android.util.Log;
-
 import java.util.List;
 
 import aptyr.com.architecture.android.mvp.model.User;
@@ -54,14 +52,14 @@ public class GithubAPI{
     }
 
     public void getUsers(int since) {
-        restService.getUsers(since).enqueue(usersCallback);
+        restService.getUsers(since).enqueue(mUsersCallback);
     }
 
     public void getUser(String login) {
-        restService.getUser(login).enqueue(userCallback);
+        restService.getUser(login).enqueue(mUserCallback);
     }
 
-    private Callback<List<User>> usersCallback = new Callback<List<User>>() {
+    private Callback<List<User>> mUsersCallback = new Callback<List<User>>() {
         @Override
         public void onResponse(Call<List<User>> call, Response<List<User>> response) {
             if (fetchUsersListener != null) {
@@ -75,10 +73,9 @@ public class GithubAPI{
         }
     };
 
-    private Callback<User> userCallback = new Callback<User>() {
+    private Callback<User> mUserCallback = new Callback<User>() {
         @Override
         public void onResponse(Call<User> call, Response<User> response) {
-            Log.d("user", "onResponse: " + response);
             if(fetchUserListener != null){
                 fetchUserListener.userFetched(response.body());
             }
@@ -86,7 +83,6 @@ public class GithubAPI{
 
         @Override
         public void onFailure(Call<User> call, Throwable t) {
-            Log.e("user", "onResponse: " + t);
 
         }
     };

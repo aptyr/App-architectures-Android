@@ -84,7 +84,7 @@ public class User {
     @JsonProperty("email")
     private String email;
     @JsonProperty("created_at")
-    private Date since;
+    private Date createdAt;
 
     public String getLogin() {
         return login;
@@ -171,7 +171,20 @@ public class User {
     }
 
     public Date getSince() {
-        return since;
+        return getCreatedAt();
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+
+    public boolean hasAdditionalData(){
+        return createdAt != null || name != null || email != null;
     }
 
     @Override

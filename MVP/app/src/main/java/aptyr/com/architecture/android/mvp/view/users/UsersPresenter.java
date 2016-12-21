@@ -15,11 +15,7 @@ package aptyr.com.architecture.android.mvp.view.users;
  * limitations under the License.
  */
 
-import android.util.Log;
-
 import com.annimon.stream.Stream;
-import com.annimon.stream.function.Consumer;
-import com.annimon.stream.function.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,25 +68,24 @@ public class UsersPresenter implements
 
     @Override
     public void rvItemClicked(int position) {
-        if(rowPositionToExpand != position){
+        if (rowPositionToExpand != position) {
             rowPositionToExpand = position;
-            api.getUser(data.get(position).getLogin());
+            if (data.get(position).hasAdditionalData()) {
+                userFetched(data.get(position));
+            } else {
+                api.getUser(data.get(position).getLogin());
+            }
         }
     }
 
     @Override
     public void userFetched(final User user) {
-        Stream.of(data).filter(new Predicate<User>() {
-            @Override
-            public boolean test(User value) {
-                return value.getLogin().equals(user.getLogin());
-            }
-        }).forEach(new Consumer<User>() {
-            @Override
-            public void accept(User value) {
-                value.setEmail(user.getEmail());
-                value.setName(user.getName());
-            }
+        Stream.of(data).
+                filter(value -> value.getLogin().equals(user.getLogin())).
+                forEach(value -> {
+            value.setEmail(user.getEmail());
+            value.setName(user.getName());
+            value.setCreatedAt(user.getCreatedAt());
         });
 
         mView.expandRow(rowPositionToExpand);

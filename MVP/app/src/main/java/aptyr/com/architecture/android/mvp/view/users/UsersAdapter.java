@@ -90,12 +90,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             super(itemView);
 
             rowView = (UsersRecyclerViewRow) itemView.findViewById(R.id.row);
-            rowView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mItemClickListener != null) {
-                        mItemClickListener.onItemClick(getAdapterPosition());
-                    }
+            rowView.setOnClickListener(view -> {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(getAdapterPosition());
                 }
             });
         }
