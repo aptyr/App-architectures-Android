@@ -15,10 +15,14 @@ package aptyr.com.architecture.android.mvp.model;
  * limitations under the License.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.Date;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "login",
@@ -75,7 +79,12 @@ public class User {
     private String type;
     @JsonProperty("site_admin")
     private boolean siteAdmin;
-
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("email")
+    private String email;
+    @JsonProperty("created_at")
+    private Date since;
 
     public String getLogin() {
         return login;
@@ -143,6 +152,26 @@ public class User {
 
     public boolean isSiteAdmin() {
         return siteAdmin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getSince() {
+        return since;
     }
 
     @Override

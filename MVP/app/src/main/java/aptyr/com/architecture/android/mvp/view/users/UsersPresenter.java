@@ -15,19 +15,30 @@ package aptyr.com.architecture.android.mvp.view.users;
  * limitations under the License.
  */
 
+import android.util.Log;
+
+import com.annimon.stream.Stream;
+import com.annimon.stream.function.Consumer;
+import com.annimon.stream.function.Predicate;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import aptyr.com.architecture.android.mvp.model.User;
 import aptyr.com.architecture.android.mvp.rest.GithubAPI;
 
-public class UsersPresenter implements UsersContract.Presenter, GithubAPI.FetchUsersListener {
+public class UsersPresenter implements
+        UsersContract.Presenter,
+        GithubAPI.FetchUsersListener,
+        GithubAPI.FetchUserListener {
 
     private UsersContract.View mView;
 
     private GithubAPI api = new GithubAPI();
 
     private List<User> data = new ArrayList<>();
+
+    private int rowPositionToExpand = -1;
 
     @Override
     public void start() {
@@ -36,6 +47,7 @@ public class UsersPresenter implements UsersContract.Presenter, GithubAPI.FetchU
         }
 
         api.setFetchUsersListener(this);
+        api.setFetchUserListener(this);
 
         getUsers(0);
     }
@@ -60,6 +72,27 @@ public class UsersPresenter implements UsersContract.Presenter, GithubAPI.FetchU
 
     @Override
     public void rvItemClicked(int position) {
-        mView.expandRow(position);
+        if(rowPositionToExpand != position){
+            rowPositionToExpand = position;
+            api.getUser(data.get(position).getLogin());
+        }
+    }
+
+    @Override
+    public void userFetched(final User user) {
+        Stream.of(data).filter(new Predicate<User>() {
+            @Override
+            public boolean test(User value) {
+                return value.getLogin().equals(user.getLogin());
+            }
+        }).forEach(new Consumer<User>() {
+            @Override
+            public void accept(User value) {
+                value.setEmail(user.getEmail());
+                value.setName(user.getName());
+            }
+        });
+
+        mView.expandRow(rowPositionToExpand);
     }
 }

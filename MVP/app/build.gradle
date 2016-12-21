@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 24
@@ -25,8 +26,6 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE'
     }
-
-
 }
 
 dependencies {
@@ -54,5 +53,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.facebook.fresco:fresco:0.14.1'
 
+    compile 'com.annimon:stream:1.1.4'
 
 }

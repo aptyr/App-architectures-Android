@@ -26,12 +26,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No name"/>
+            android:text="@{ user.name }"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No email"/>
+            android:text="@{ user.email }"/>
 
         <TextView
             android:layout_width="wrap_content"

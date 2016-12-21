@@ -20,6 +20,7 @@ import java.util.List;
 import aptyr.com.architecture.android.mvp.model.User;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -29,6 +30,9 @@ interface GithubService {
 
     @GET("users")
     Call<List<User>> getUsers(@Query("since") int since);
+
+    @GET("users/{login}")
+    Call<User> getUser(@Path("login") String login);
 
 
 }
