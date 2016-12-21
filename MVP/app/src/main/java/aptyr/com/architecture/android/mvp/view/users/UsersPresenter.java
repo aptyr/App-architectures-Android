@@ -15,8 +15,6 @@ package aptyr.com.architecture.android.mvp.view.users;
  * limitations under the License.
  */
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
